@@ -80,7 +80,12 @@ public class ProductMain {
     }
 
     private static void deleteProduct(String productCode) {
-        // TODO Auto-generated method stub
+        if(productCode == null) {
+        	System.out.println("Product code cannot be null");
+        	return;
+        }else {
+        	productService.deleteProduct(productCode);
+        }
     }
 
     private static void getProduct(String productCode) {
