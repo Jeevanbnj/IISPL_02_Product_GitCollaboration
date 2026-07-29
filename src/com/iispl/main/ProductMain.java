@@ -104,7 +104,8 @@ public class ProductMain {
     }
 
     private static void saveProduct(Product product) {
-        // TODO Auto-generated method stub
+        productService.saveProduct(product);
+        System.out.println("Product saved");
     }
 
     private static void listAllProducts() {
