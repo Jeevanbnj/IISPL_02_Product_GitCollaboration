@@ -1,5 +1,6 @@
 package com.iispl.dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -75,6 +76,22 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public Product getProduct(String productCode) {
 		// TODO Auto-generated method stub
+		String sql = "SELECT FROM products WHERE productcode = ?";
+		try {
+			DataSource ds = ConnectionPool.getDataSource();
+			Connection connection = ds.getConnection();
+			PreparedStatement prepStmt = connection.prepareStatement(sql);
+			prepStmt.setString(1, productCode);
+			ResultSet resultSet = prepStmt.executeQuery();
+
+			if(resultSet.next()) {
+				Product product = new Product(
+						resultSet.getString(1), resultSet.getString(2),resultSet.getString(3),resultSet.getDate(4).toLocalDate(),resultSet.getDate(5).toLocalDate());		
+			}
+			
+		}catch(Exception e ) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
