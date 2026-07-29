@@ -1,21 +1,25 @@
 package com.iispl.main;
 
-import java.util.List;
 
-import com.iispl.dao.ProductDaoImpl;
-import com.iispl.model.Product;
+import com.iispl.service.ProductService;
+import com.iispl.service.ProductServiceImpl;
 
 public class ProductMain {    
-    
+    public static ProductService productService=new ProductServiceImpl();
     public static void main(String[] args) {
     	
     	
-    	List<Product> products = new ProductDaoImpl().listAllProducts();
-    	for (Product product : products) {
-    		System.out.println(product);
-    	}
-
         
     }
+    private static void deleteProduct(String productCode) {
+    	if(productCode==null) {
+    		System.out.println("ProductCode cannot be null");
+    	}else {
+    		productService.deleteProduct(productCode);
+
     
+		
+    	}  
+
+    }
 }
