@@ -1,6 +1,7 @@
 package com.iispl.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,8 +17,28 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public void saveProduct(Product product) {
-		// TODO Auto-generated method stub
-
+		
+		Connection connection = null;
+		String insertSQL = "insert into products values(?, ?, ?, ?, ?)";
+		PreparedStatement prepStmt = null;
+		
+		try {
+			DataSource ds = ConnectionPool.getDataSource();
+			connection = ds.getConnection();
+			prepStmt = connection.prepareStatement(insertSQL);
+			prepStmt.setString(1, product.getProductCode());
+			prepStmt.setString(2, product.getProductName());
+			prepStmt.setString(3, product.getProductDescription());
+			prepStmt.setDate(4, Date.valueOf(product.getActivationDate()));
+			prepStmt.setDate(5, Date.valueOf(product.getExpiryDate()));
+			
+			prepStmt.executeUpdate();
+			
+			connection.close();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
