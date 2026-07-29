@@ -3,6 +3,7 @@ package com.iispl.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,38 +22,33 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<Product> listAllProducts() {
-
-	    List<Product> productList = new ArrayList<>();
-
-	    String selectSQL = "SELECT * FROM products";
-
-	    try {
-	        DataSource ds = ConnectionPool.getDataSource();
-	        Connection connection = ds.getConnection();
-
-	        PreparedStatement prepStmt = connection.prepareStatement(selectSQL);
-
-	        ResultSet resultSet = prepStmt.executeQuery();
-
-	        while (resultSet.next()) {
-
-	            Product product = new Product(
-	                    resultSet.getString(1),
-	                    resultSet.getString(2),
-	                    resultSet.getString(3),
-	                    resultSet.getDate(4).toLocalDate(),
-	                    resultSet.getDate(5).toLocalDate());
-
-	            productList.add(product);
-	        }
-
-	        connection.close();
-
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-
-	    return productList;
+		List<Product> productList = new ArrayList<>();
+		Connection connection = null;
+		PreparedStatement prepStmt = null;
+		
+		String listProduct="Select * from  products";
+		
+		try {
+			DataSource datasource = ConnectionPool.getDataSource();
+			connection = datasource.getConnection();
+			prepStmt = connection.prepareStatement(listProduct);
+			
+			ResultSet resultSet = prepStmt.executeQuery();
+			while(resultSet.next()) {
+				Product product = new Product(
+						resultSet.getString(1),
+						resultSet.getString(2),
+						resultSet.getString(3),
+						resultSet.getDate(4).toLocalDate(),
+						resultSet.getDate(5).toLocalDate());
+				productList.add(product);
+			}
+			connection.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return productList;  
 	}
 
 	@Override
