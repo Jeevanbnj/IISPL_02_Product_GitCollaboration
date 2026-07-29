@@ -58,13 +58,13 @@ public class ProductMain {
 
             case 3:
                 System.out.print("Enter Product Code : ");
-                String productCode2 = scanner.next();
+                String productCode2 = scanner.nextLine();
                 getProduct(productCode2);
                 break;
 
             case 4:
                 System.out.print("Enter Product Code : ");
-                String productCode1 = scanner.next();
+                String productCode1 = scanner.nextLine();
                 deleteProduct(productCode1);
                 break;
 

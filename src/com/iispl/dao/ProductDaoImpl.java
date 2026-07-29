@@ -76,7 +76,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public Product getProduct(String productCode) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT FROM products WHERE productcode = ?";
+		String sql = "SELECT * FROM products WHERE productcode = ?";
 		Product product = null;
 		try {
 			DataSource ds = ConnectionPool.getDataSource();
@@ -99,7 +99,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public void deleteProduct(String productCode) {
 		
-		String sql="DELETE FROM product WHERE productCode=?";
+		String sql="DELETE FROM products WHERE productCode=?";
 	 try {
 		 DataSource ds=ConnectionPool.getDataSource();
 	     
