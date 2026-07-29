@@ -13,19 +13,19 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public List<Product> listAllProducts() {
-		return null;
+		return productDao.listAllProducts();
 	}
 
 
 	@Override
 	public void saveProduct(Product product) {
-		
+		productDao.saveProduct(product);
 	}
 
 
 	@Override
 	public Product getProduct(String productCode) {
-		return null;
+		return productDao.getProduct(productCode);
 	}
 
 
