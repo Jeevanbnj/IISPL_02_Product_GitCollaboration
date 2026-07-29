@@ -3,6 +3,7 @@ package com.iispl.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,8 +64,33 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public void deleteProduct(String productCode) {
+		
+		String sql="DELETE FROM product WHERE productCode=?";
+	 try {
+		 DataSource ds=ConnectionPool.getDataSource();
+	     
+	        Connection connection = ds.getConnection();
+
+	        PreparedStatement ps = connection.prepareStatement(sql);
+
+	        ps.setString(1, productCode);
+
+	        int rows = ps.executeUpdate();
+
+	        if (rows > 0)
+	            System.out.println("Product deleted successfully.");
+	        else
+	            System.out.println("Product not found.");
+
+	        connection.close();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	}
 		// TODO Auto-generated method stub
 
 	}
 
-}
+
