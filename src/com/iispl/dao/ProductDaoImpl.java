@@ -89,7 +89,7 @@ public class ProductDaoImpl implements ProductDao {
 				product = new Product(
 						resultSet.getString(1), resultSet.getString(2),resultSet.getString(3),resultSet.getDate(4).toLocalDate(),resultSet.getDate(5).toLocalDate());		
 			}
-			
+			connection.close();
 		}catch(Exception e ) {
 			e.printStackTrace();
 		}
