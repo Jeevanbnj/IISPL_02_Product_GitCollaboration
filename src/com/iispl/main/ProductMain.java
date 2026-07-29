@@ -9,15 +9,15 @@ import com.iispl.model.Product;
 import com.iispl.service.ProductService;
 import com.iispl.service.ProductServiceImpl;
 
-public class ProductMain {    
-	
-	 private static ProductService productService = new ProductServiceImpl();
+public class ProductMain {
 
-	public static Scanner scanner = new Scanner(System.in);
-    
+    private static ProductService productService = new ProductServiceImpl();
+
+    public static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
-    	
-    	while (true) {
+
+        while (true) {
 
             System.out.println("\n========= PRODUCT MANAGEMENT =========");
             System.out.println("1. Create Product");
@@ -33,24 +33,22 @@ public class ProductMain {
             switch (choice) {
 
             case 1:
-            	
-            	System.out.print("Enter Product Code : ");
+
+                System.out.print("Enter Product Code : ");
                 String productCode = scanner.nextLine();
 
                 System.out.print("Enter Product Name : ");
                 String productName = scanner.nextLine();
 
-
                 System.out.print("Enter Product Description : ");
                 String productDescription = scanner.nextLine();
 
                 LocalDate activationDate = LocalDate.now();
-
                 LocalDate expiryDate = LocalDate.now().plusYears(3);
 
                 Product product = new Product(productCode, productName,
                         productDescription, activationDate, expiryDate);
-                
+
                 saveProduct(product);
                 break;
 
@@ -59,13 +57,13 @@ public class ProductMain {
                 break;
 
             case 3:
-            	System.out.print("Enter Product Code : ");
+                System.out.print("Enter Product Code : ");
                 String productCode2 = scanner.next();
                 getProduct(productCode2);
                 break;
 
             case 4:
-            	System.out.print("Enter Product Code : ");
+                System.out.print("Enter Product Code : ");
                 String productCode1 = scanner.next();
                 deleteProduct(productCode1);
                 break;
@@ -80,23 +78,36 @@ public class ProductMain {
             }
         }
     }
-    
+
     private static void deleteProduct(String productCode) {
-		// TODO Auto-generated method stub
-		
-	}
+        // TODO Auto-generated method stub
+    }
 
-	private static void getProduct(String productCode) {
-		// TODO Auto-generated method stub
-		
-	}
+    private static void getProduct(String productCode) {
 
-	private static void saveProduct(Product product) {
-		// TODO Auto-generated method stub
-		
-	}
+        if (productCode == null || productCode.isBlank()) {
+            System.out.println("Product code should not be empty");
+            return;
+        }
 
-	private static void listAllProducts() {
+        Product product = productService.getProduct(productCode);
+
+        if (product == null) {
+            System.out.println("Product not found");
+        } else {
+            System.out.println("Product Code : " + product.getProductCode());
+            System.out.println("Product Name : " + product.getProductName());
+            System.out.println("Product Description : " + product.getProductDescription());
+            System.out.println("Activation Date : " + product.getActivationDate());
+            System.out.println("Expiry Date : " + product.getExpiryDate());
+        }
+    }
+
+    private static void saveProduct(Product product) {
+        // TODO Auto-generated method stub
+    }
+
+    private static void listAllProducts() {
 
         List<Product> productList = productService.listAllProducts();
 
@@ -114,5 +125,4 @@ public class ProductMain {
         }
     }
 
-    
 }
