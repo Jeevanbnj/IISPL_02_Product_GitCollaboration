@@ -77,6 +77,7 @@ public class ProductDaoImpl implements ProductDao {
 	public Product getProduct(String productCode) {
 		// TODO Auto-generated method stub
 		String sql = "SELECT FROM products WHERE productcode = ?";
+		Product product = null;
 		try {
 			DataSource ds = ConnectionPool.getDataSource();
 			Connection connection = ds.getConnection();
@@ -85,14 +86,14 @@ public class ProductDaoImpl implements ProductDao {
 			ResultSet resultSet = prepStmt.executeQuery();
 
 			if(resultSet.next()) {
-				Product product = new Product(
+				product = new Product(
 						resultSet.getString(1), resultSet.getString(2),resultSet.getString(3),resultSet.getDate(4).toLocalDate(),resultSet.getDate(5).toLocalDate());		
 			}
 			
 		}catch(Exception e ) {
 			e.printStackTrace();
 		}
-		return null;
+		return product;
 	}
 
 	@Override
